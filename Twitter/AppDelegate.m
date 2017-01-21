@@ -7,7 +7,11 @@
 //
 
 #import "AppDelegate.h"
-
+#import "NSURL+dictionaryFromQueryString.h"
+#import "TwitterClient.h"
+#import "User.h"
+#import "LoginViewController.h"
+#import "TweetsViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +21,32 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    User *currentUser = [User getCurrentUser];
+    if (currentUser == nil) {
+        
+        LoginViewController *loginViewController= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginViewController"]; //or the homeController
+        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
+        self.window.rootViewController = loginViewController;
+        
+        
+    } else {
+        
+        TweetsViewController *tweetsViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"TweetsViewController"];
+        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:tweetsViewController];
+        self.window.rootViewController = navController;
+    }
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
 
@@ -45,6 +75,16 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)app
+             openURL:(NSURL *)url
+             options:(NSDictionary<NSString *,id> *)options {
+    
+    
+    [[TwitterClient instance] handleOpenURL:url];
+    return  YES;
+    
 }
 
 
