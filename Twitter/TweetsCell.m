@@ -35,7 +35,9 @@
 }
 -(void)updateCell{
     
-    [_profileImageView setimagew]
+    [_profileImageView setImageWithURL:_tweets.profileImageURL];
+    _nameLabel.text = _tweets.name;
+    _displayScreenLabel.text = _tweets.screen_name;
     
 }
 - (void)awakeFromNib {

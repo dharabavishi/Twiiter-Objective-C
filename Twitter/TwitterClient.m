@@ -98,20 +98,6 @@ NSString  *appUrl = @"https://api.twitter.com";
 }
 
 
-/*
- get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task : URLSessionDataTask, response : Any?) in
- print("--- TwitterClient: currentAccount : Success")
- let userDictionary = response as! NSDictionary
- let user = User(dictionary : userDictionary)
- 
- success(user)
- 
- }, failure: { (task : URLSessionDataTask?, error : Error) in
- failure(error)
- 
- })
- 
- */
 -(void)getCurrentUser: (BDBOAuth1Credential *)accessToken completion:(void (^)(User *user, NSError *error))completion{
     
     [self GET:@"1.1/account/verify_credentials.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -146,6 +132,17 @@ NSString  *appUrl = @"https://api.twitter.com";
                            }];
 }
 
+- (void)homeTimeLineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion
+{
+
+    
+    [self GET:@"1.1/statuses/home_timeline.json" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *tweets = [Tweets tweetsWithArray:responseObject];
+        completion(tweets,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil,error);
+    }];
+}
 
 
 

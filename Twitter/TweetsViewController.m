@@ -8,17 +8,59 @@
 
 #import "TweetsViewController.h"
 #import "TweetsCell.h"
-
-@interface TweetsViewController ()
-
-
+#import "TwitterClient.h"
+@interface TweetsViewController () <UITableViewDataSource, UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
 
 @implementation TweetsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+    
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
+    
+    UINib *cell = [UINib nibWithNibName:@"TweetsCell" bundle:nil];
+    [self.tableView registerNib:cell forCellReuseIdentifier:@"TweetsCell"];
+    
+//    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(newTweet:)];
+//    self.navigationItem.rightBarButtonItem = rightButton;
+//    
+//    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout:)];
+    //self.navigationItem.leftBarButtonItem = leftButton;
+    
+    [self loadTweets];
+    
+    
+    // Do any additional setup after loading the view from its nib.
+}
+
+- (void) onRefresh
+{
+    [self loadTweets];
+}
+
+- (void) loadTweets
+{
+    [[TwitterClient instance] homeTimeLineWithParams:nil completion:^(NSArray *result, NSError *error) {
+        [self.refreshControl endRefreshing];
+        tweets = result;
+        [self.tableView reloadData];
+    }];
 }
 #pragma mark - UITableViewDataSource
 
@@ -27,8 +69,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TweetsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCells" forIndexPath:indexPath];
+    TweetsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetsCell" forIndexPath:indexPath];
     cell.tweets = tweets[indexPath.row];
+    [cell updateCell];
     //cell.delegate = self;
     return cell;
 }
@@ -40,9 +83,9 @@
 //    return size.height + 1;
 //}
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 112; // height of a 4-line non-retweeted tweet
-//}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 112; // height of a 4-line non-retweeted tweet
+}
 
 #pragma mark - UITableViewDelegate
 

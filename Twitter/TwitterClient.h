@@ -8,7 +8,7 @@
 
 #import "BDBOAuth1SessionManager.h"
 #import "User.h"
-
+#import "Tweets.h"
 @interface TwitterClient : BDBOAuth1SessionManager
 
 + (TwitterClient *)instance;
@@ -17,4 +17,5 @@
 
 - (void)loginWithTwitter;
 -(void)handleOpenURL:(NSURL *)url;
+- (void)homeTimeLineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion;
 @end

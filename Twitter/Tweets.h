@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "User.h"
 @interface Tweets : NSObject
-
 
 @property (nonatomic, copy)NSString *text;
 @property (nonatomic, copy)NSDate *timestamp;
@@ -21,9 +20,15 @@
 @property (nonatomic, copy)NSString *screen_name;
 @property (nonatomic, assign)BOOL favourited;
 @property (nonatomic, copy)NSString *retweetedStatus;
-@property (nonatomic, copy)NSString *idStr;
+@property (nonatomic, copy)NSString *tweetID;
 @property (nonatomic,copy)NSDictionary *dictTweets;
 @property (nonatomic, copy)NSString *retweetedStatusID;
 @property (nonatomic, copy)NSString *retweetUserID;
+@property (nonatomic,strong)User *user;
+
+- (id)initWithDictionary:(NSDictionary *)dict;
++ (NSArray *)tweetsWithArray:(NSArray *)array;
+
+- (NSString *)getAgoTime;
 
 @end
