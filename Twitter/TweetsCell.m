@@ -8,7 +8,6 @@
 
 #import "TweetsCell.h"
 #import "UIImageView+AFNetworking.h"
-#import <ResponsiveLabel.h>
 #import "ComposeViewController.h"
 @interface TweetsCell()
 @property (weak, nonatomic) IBOutlet UIImageView *retweetInReplyIcon;
