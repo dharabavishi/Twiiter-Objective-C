@@ -34,7 +34,7 @@
             
         }else{
             
-            [[TwitterClient instance]showAlert:self alertTitle:error.description];
+            [[TwitterClient instance]showAlert:self alertTitle:error.localizedDescription];
             NSLog(@"%@",error.description);
         }
     }];

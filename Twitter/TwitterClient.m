@@ -241,8 +241,26 @@ func composeTweet(tweetText: String, inReplyTo:Int64, completion:@escaping (_ re
 -(void)showAlert:(UIViewController *)controller alertTitle:(NSString *)strTitle{
   
     
-    UIAlertController *alert1 = [UIAlertController alertControllerWithTitle:@"Something went wrong" message:strTitle preferredStyle:UIAlertControllerStyleAlert];
-    [alert1 showViewController:controller sender:nil];
+    if ([UIAlertController class])
+    {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Something went wrong" message:strTitle preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        
+        [controller presentViewController:alertController animated:YES completion:nil];
+        
+    }
+    else
+    {
+        
+        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Alert title" message:@"Alert message" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alert show];
+        
+    }
+  
 }
 
 @end

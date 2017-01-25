@@ -78,7 +78,7 @@
     {
         [[TwitterClient instance] composeTweet:_txtView.text reply:replyToID completion:^(id help, NSError *error) {
             if(error){
-                [[TwitterClient instance]showAlert:self alertTitle:error.description];
+                [[TwitterClient instance]showAlert:self alertTitle:error.localizedDescription];
             }else{
                 NSLog(@"%@",help);
                 

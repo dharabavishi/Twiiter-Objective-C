@@ -32,7 +32,7 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:TRUE];
 
-    [self loadTweets];
+    
     
     
     
@@ -116,7 +116,7 @@
         [weakSelf.tableView.infiniteScrollingView stopAnimating];
         if(error){
             NSLog(@"erroe is %@",error.localizedDescription);
-            [[TwitterClient instance]showAlert:self alertTitle:error.description];
+            [[TwitterClient instance]showAlert:self alertTitle:error.localizedDescription];
         }else{
            
             
