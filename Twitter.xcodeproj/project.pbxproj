@@ -24,6 +24,12 @@
 		9329CEBB1E2B06F00008A823 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329CEBA1E2B06F00008A823 /* LoginViewController.m */; };
 		9329CEBF1E2B09890008A823 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329CEBE1E2B09890008A823 /* TwitterClient.m */; };
 		9329CEC21E2B24990008A823 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 9329CEC11E2B24990008A823 /* User.m */; };
+		9336BBE31E371B3600F8E683 /* TweetsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9336BBE21E371B3600F8E683 /* TweetsDetailViewController.m */; };
+		9336BBEB1E37826B00F8E683 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9336BBEA1E37826B00F8E683 /* ComposeViewController.m */; };
+		9336BBEE1E378DE500F8E683 /* GCPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9336BBED1E378DE500F8E683 /* GCPlaceholderTextView.m */; };
+		9336BBF01E38889E00F8E683 /* NSDateTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9336BBEF1E38889E00F8E683 /* NSDateTimeAgo.bundle */; };
+		9336BBF31E39165C00F8E683 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 9336BBF21E39165C00F8E683 /* UIScrollView+SVInfiniteScrolling.m */; };
+		93C82E311E341DF800F0CEC5 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C82E301E341DF800F0CEC5 /* NSDate+TimeAgo.m */; };
 		A74EF2C021D50F242E9CE15C /* libPods-TwitterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 373537D0F6BD599E4FCC48F1 /* libPods-TwitterTests.a */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +86,18 @@
 		9329CEBE1E2B09890008A823 /* TwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterClient.m; sourceTree = "<group>"; };
 		9329CEC01E2B24990008A823 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		9329CEC11E2B24990008A823 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		9336BBE11E371B3600F8E683 /* TweetsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsDetailViewController.h; sourceTree = "<group>"; };
+		9336BBE21E371B3600F8E683 /* TweetsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsDetailViewController.m; sourceTree = "<group>"; };
+		9336BBE71E3775A900F8E683 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		9336BBE91E37826B00F8E683 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		9336BBEA1E37826B00F8E683 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		9336BBEC1E378DE500F8E683 /* GCPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCPlaceholderTextView.h; sourceTree = "<group>"; };
+		9336BBED1E378DE500F8E683 /* GCPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCPlaceholderTextView.m; sourceTree = "<group>"; };
+		9336BBEF1E38889E00F8E683 /* NSDateTimeAgo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NSDateTimeAgo.bundle; sourceTree = "<group>"; };
+		9336BBF11E39165B00F8E683 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		9336BBF21E39165C00F8E683 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		93C82E2F1E341DF800F0CEC5 /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		93C82E301E341DF800F0CEC5 /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
 		BCB1F091CDDC243E683E42B3 /* Pods-TwitterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterTests/Pods-TwitterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E93864847E46C35B22CE2C59 /* Pods-TwitterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterUITests/Pods-TwitterUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EEEC92A9C2E2A0BACC7FA39B /* libPods-TwitterUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TwitterUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,8 +157,16 @@
 		931C0A691E32C8A10022F18A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				9336BBF11E39165B00F8E683 /* UIScrollView+SVInfiniteScrolling.h */,
+				9336BBF21E39165C00F8E683 /* UIScrollView+SVInfiniteScrolling.m */,
+				9336BBEC1E378DE500F8E683 /* GCPlaceholderTextView.h */,
+				9336BBED1E378DE500F8E683 /* GCPlaceholderTextView.m */,
+				93C82E2F1E341DF800F0CEC5 /* NSDate+TimeAgo.h */,
+				93C82E301E341DF800F0CEC5 /* NSDate+TimeAgo.m */,
 				931C0A6C1E32C8FF0022F18A /* NSURL+dictionaryFromQueryString.h */,
 				931C0A6D1E32C8FF0022F18A /* NSURL+dictionaryFromQueryString.m */,
+				9336BBEF1E38889E00F8E683 /* NSDateTimeAgo.bundle */,
+				9336BBE71E3775A900F8E683 /* Constant.h */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -253,6 +279,8 @@
 		9329CEB01E2AF69C0008A823 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9336BBE81E37825400F8E683 /* Compose */,
+				9336BBDD1E37193400F8E683 /* Detail */,
 				931C0A721E32FE4E0022F18A /* Tweets */,
 				9329CEB21E2AFAAC0008A823 /* Login */,
 			);
@@ -275,6 +303,24 @@
 				9329CEBE1E2B09890008A823 /* TwitterClient.m */,
 			);
 			name = Api;
+			sourceTree = "<group>";
+		};
+		9336BBDD1E37193400F8E683 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				9336BBE11E371B3600F8E683 /* TweetsDetailViewController.h */,
+				9336BBE21E371B3600F8E683 /* TweetsDetailViewController.m */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		9336BBE81E37825400F8E683 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				9336BBE91E37826B00F8E683 /* ComposeViewController.h */,
+				9336BBEA1E37826B00F8E683 /* ComposeViewController.m */,
+			);
+			name = Compose;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9329CE8B1E2AF6800008A823 /* LaunchScreen.storyboard in Resources */,
+				9336BBF01E38889E00F8E683 /* NSDateTimeAgo.bundle in Resources */,
 				9329CE881E2AF6800008A823 /* Assets.xcassets in Resources */,
 				9329CE861E2AF6800008A823 /* Main.storyboard in Resources */,
 				931C0A7B1E3305810022F18A /* TweetsCell.xib in Resources */,
@@ -561,12 +608,17 @@
 				9329CEC21E2B24990008A823 /* User.m in Sources */,
 				9329CEBF1E2B09890008A823 /* TwitterClient.m in Sources */,
 				9329CE801E2AF6800008A823 /* AppDelegate.m in Sources */,
+				9336BBEB1E37826B00F8E683 /* ComposeViewController.m in Sources */,
 				931C0A7E1E331CB60022F18A /* Tweets.m in Sources */,
 				931C0A7A1E3305810022F18A /* TweetsCell.m in Sources */,
+				9336BBE31E371B3600F8E683 /* TweetsDetailViewController.m in Sources */,
+				93C82E311E341DF800F0CEC5 /* NSDate+TimeAgo.m in Sources */,
 				9329CE7D1E2AF6800008A823 /* main.m in Sources */,
 				931C0A6E1E32C8FF0022F18A /* NSURL+dictionaryFromQueryString.m in Sources */,
 				9329CEBB1E2B06F00008A823 /* LoginViewController.m in Sources */,
 				931C0A751E32FE640022F18A /* TweetsViewController.m in Sources */,
+				9336BBF31E39165C00F8E683 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
+				9336BBEE1E378DE500F8E683 /* GCPlaceholderTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

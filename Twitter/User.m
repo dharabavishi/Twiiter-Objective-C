@@ -7,7 +7,8 @@
 //
 
 #import "User.h"
-
+#import "TwitterClient.h"
+#import "AppDelegate.h"
 
 @interface User()
 
@@ -23,7 +24,7 @@
     if (self) {
         self.name = dict[@"name"];
         self.screenName = dict[@"screen_name"];
-        self.profileImageUrl = dict[@"profile_image_url"];
+        self.profileImageUrl = [NSURL URLWithString:dict[@"profile_image_url_https"]];
         //self.tagline = dict[@"description"];
         self.dictionary = dict;
     }
@@ -62,6 +63,13 @@ NSString *const kCurrentUserKey = @"kCurrentUserKey";
         [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kCurrentUserKey];
     }
 }
++ (void)logout {
+    _currentUser = nil;
+    
+    [[TwitterClient instance].requestSerializer removeAccessToken];
 
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UserDidLogoutNotification" object:nil];
+}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "TwitterClient.h"
+#import "MBProgressHUD.h"
 @interface LoginViewController ()
 
 @end
@@ -17,19 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-        
-        
-        
-    
    
-    // Do any additional setup after loading the view.
 }
 #pragma mark Button Clicks
 
 - (IBAction)onLoginClick:(UIButton *)sender {
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:TRUE];
     [[TwitterClient instance]loginWithCompletion:^(User *user, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:TRUE];
         if(!error){
             
             NSLog(@"%@",user.screenName);
@@ -37,6 +34,7 @@
             
         }else{
             
+            [[TwitterClient instance]showAlert:self alertTitle:error.description];
             NSLog(@"%@",error.description);
         }
     }];

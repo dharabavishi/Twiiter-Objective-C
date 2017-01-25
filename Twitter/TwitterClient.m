@@ -6,10 +6,10 @@
 //  Copyright © 2017 Dhara Bavishi. All rights reserved.
 //
 
-
+#import <UIKit/UIKit.h>
 #import "TwitterClient.h"
 #import "NSURL+dictionaryFromQueryString.h"
-
+#import "Constant.h"
 @interface  TwitterClient()
 
 @property (nonatomic, strong) void (^loginCompletion)(User *, NSError *error);
@@ -19,9 +19,7 @@
 
 @implementation TwitterClient
 
-NSString  *consumerKey = @"bBRVqCAgL3F3kATxww9DhWtjy";
-NSString  *consumerSecret = @"dGz9LTIMNBoXRg06sPsXUpJw89btObtmGYEBaKK0XLWJ129B0X";
-NSString  *appUrl = @"https://api.twitter.com";
+
 
 
 
@@ -29,7 +27,7 @@ NSString  *appUrl = @"https://api.twitter.com";
     static TwitterClient *instance = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        instance = [[TwitterClient alloc] initWithBaseURL:[NSURL URLWithString:appUrl] consumerKey:consumerKey consumerSecret:consumerSecret];
+        instance = [[TwitterClient alloc] initWithBaseURL:[NSURL URLWithString:APP_URL] consumerKey:CONSUMER_KEY consumerSecret:CONSUMER_SECRET];
     });
     return instance;
 }
@@ -39,7 +37,7 @@ NSString  *appUrl = @"https://api.twitter.com";
     [self fetchRequestTokenWithPath:@"oauth/request_token" method:@"POST" callbackURL:[NSURL URLWithString:@"bdboauth://oauth"] scope:nil success:^(BDBOAuth1Credential *requestToken) {
         
         NSLog(@"request token is %@",requestToken);
-        NSString *authURL = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
+        NSString *authURL = [NSString stringWithFormat:@"%@/oauth/authorize?oauth_token=%@",APP_URL, requestToken.token];
 
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authURL] options:@{}  completionHandler:nil];
         
@@ -89,7 +87,7 @@ NSString  *appUrl = @"https://api.twitter.com";
     [self.requestSerializer removeAccessToken];
     
     [self fetchRequestTokenWithPath:@"oauth/request_token" method:@"GET" callbackURL:[NSURL URLWithString:@"bdboauth://oauth"] scope:nil success:^(BDBOAuth1Credential *requestToken) {
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/oauth/authorize?oauth_token=%@", APP_URL,requestToken.token]];
         [[UIApplication sharedApplication] openURL:url options:@{}  completionHandler:nil];
     } failure:^(NSError *error) {
         NSLog(@"token failed");
@@ -132,11 +130,17 @@ NSString  *appUrl = @"https://api.twitter.com";
                            }];
 }
 
-- (void)homeTimeLineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion
-{
-
+- (void)homeTimeLineWithParams:(NSString *)lowestID completion:(void (^)(NSArray *tweets, NSError *error))completion{
     
-    [self GET:@"1.1/statuses/home_timeline.json" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:@"20" forKey:@"count"];
+    if([lowestID isEqualToString:@"0"]){
+        dict = nil;
+    }else{
+        [dict setObject:lowestID forKey:@"max_id"];
+    }
+    
+    [self GET:TIMELINE_URL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *tweets = [Tweets tweetsWithArray:responseObject];
         completion(tweets,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -144,6 +148,101 @@ NSString  *appUrl = @"https://api.twitter.com";
     }];
 }
 
+ 
 
+- (void)favoriteATweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:tweetID forKey:@"id"];
+    
+    
+   
+    
+    NSString *url1 = [NSString stringWithFormat: @"%@?id=%@",FAVORITE_URL, tweetID];
+    [self POST:url1 parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"resp %@",responseObject);
+        completion(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil,error);
+        NSLog(@"%@",error.description);
+    }];
+    
+    
+}
+
+- (void)unfavoriteATweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:tweetID forKey:@"id"];
+    
+    
+   
+    
+    [self POST:UN_FAVORITE_URL parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        completion(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil,error);
+    }];
+    
+    
+}
+
+- (void)retweetATweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion{
+   
+    
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@.json",RETWEET_A_TWEET,tweetID];
+    [self POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        completion(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil,error);
+    }];
+
+}
+- (void)undoRetweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion{
+    NSString *url = [NSString stringWithFormat:@"%@/%@.json",UNDO_RETWEET_A_TWEET,tweetID];
+    [self POST:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        completion(responseObject,nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil,error);
+    }];
+
+}
+/*
+func composeTweet(tweetText: String, inReplyTo:Int64, completion:@escaping (_ response:AnyObject?, _ error:Error?)->())
+{
+    var params = ["status": tweetText, "in_reply_to_status_id": "\(inReplyTo)"] as [String: Any]
+    if(inReplyTo == 0)
+    {
+        params = ["status": tweetText, "in_reply_to_status_id": ""] as [String: Any]
+    }
+    post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+        completion(response as AnyObject? , nil)
+    }, failure: { (task:URLSessionDataTask?, err:Error) -> Void in
+        completion(nil, err)
+    })
+}*/
+
+-(void)composeTweet:(NSString *)tweetText reply:(NSString *)replyID completion:(void (^)(id help, NSError *error))completion{
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:tweetText forKey:@"status"];
+    [dict setObject:@"" forKey:@"in_reply_to_status_id"];
+
+    if(replyID){
+        
+        [dict setObject:replyID forKey:@"in_reply_to_status_id"];
+    }
+    [self POST:COMPOSE_TWEET parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        completion(responseObject , nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+  
+}
+-(void)showAlert:(UIViewController *)controller alertTitle:(NSString *)strTitle{
+  
+    
+    UIAlertController *alert1 = [UIAlertController alertControllerWithTitle:@"Something went wrong" message:strTitle preferredStyle:UIAlertControllerStyleAlert];
+    [alert1 showViewController:controller sender:nil];
+}
 
 @end

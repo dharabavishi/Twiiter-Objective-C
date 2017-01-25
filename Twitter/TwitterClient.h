@@ -17,5 +17,11 @@
 
 - (void)loginWithTwitter;
 -(void)handleOpenURL:(NSURL *)url;
-- (void)homeTimeLineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion;
+- (void)homeTimeLineWithParams:(NSString *)lowestID completion:(void (^)(NSArray *tweets, NSError *error))completion;
+- (void)favoriteATweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion;
+- (void)unfavoriteATweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion;
+- (void)retweetATweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion;
+- (void)undoRetweet:(NSString *)tweetID completion:(void (^)(id help, NSError *error))completion;
+-(void)composeTweet:(NSString *)tweetText reply:(NSString *)replyID completion:(void (^)(id help, NSError *error))completion;
+-(void)showAlert:(UIViewController *)controller alertTitle:(NSString *)strTitle;
 @end

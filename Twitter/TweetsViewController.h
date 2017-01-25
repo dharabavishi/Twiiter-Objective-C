@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ComposeViewController.h"
 
-@interface TweetsViewController : UIViewController{
+@interface TweetsViewController : UIViewController <ComposeViewControllerDelegate>{
     
-    NSArray *tweets;
+    
 
 }
+@property(nonatomic,strong)NSMutableArray *tweets;
+- (IBAction)composeNewClick:(UIBarButtonItem *)sender;
 
 @end

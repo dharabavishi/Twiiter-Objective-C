@@ -12,6 +12,7 @@
 #import "User.h"
 #import "LoginViewController.h"
 #import "TweetsViewController.h"
+#import "Constant.h"
 @interface AppDelegate ()
 
 @end
@@ -22,10 +23,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:1]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : TWITTER_BLUE}];
+    [[UINavigationBar appearance] setBarTintColor:WHITE];
+    [[UINavigationBar appearance] setTintColor:TWITTER_BLUE];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogout) name:@"UserDidLogoutNotification" object:nil];
+
+     
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -33,7 +39,7 @@
     if (currentUser == nil) {
         
         LoginViewController *loginViewController= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginViewController"]; //or the homeController
-        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
+       
         self.window.rootViewController = loginViewController;
         
         
@@ -49,7 +55,11 @@
 
     return YES;
 }
-
+- (void)userDidLogout
+{
+    LoginViewController *loginViewController= [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    self.window.rootViewController = loginViewController;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

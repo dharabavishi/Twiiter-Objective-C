@@ -20,4 +20,5 @@
 - (id)initWithDictionary:(NSDictionary *)dict;
 + (void)setCurrentUser:(User *)currentUser;
 + (User *)getCurrentUser;
++ (void)logout;
 @end
